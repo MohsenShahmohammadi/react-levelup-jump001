@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+/******** Controller Side ****/
+.controller-container {
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(70, 14, 70);;
+  color: white;
+  padding: 5px;
+}
+.controller-container h3 {
+  font-size: 14px;
+  font-weight: bolder;
+  font-size: 1.1rem;
+  margin: 5px 5px 20px 5px;
+}
+.link-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.link-group p {
+  font-weight: bold;
+  font-size: 16px;
+}
+.link-group input {
+  border-radius: 5px;
+  margin: 5px;
+  width: 100%;
+  height: 25px;
+  padding: 0 5px;
+}
+.controller-options {
+  border: 1px solid #fff;
+  padding: 10px;
+  margin: 5px;
+}
+.option-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+.inputOption {
+  width: 30px;
+  height: 30px;
+  font-size: 0.8rem;
+  margin-left: 5px;
+  padding: 3px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #c1c1c1;
+}
+.option-group div {
+  flex: 1;
+}
+/********* image container ******/
+.image-container {
+  display: flex;
+  flex-direction: column;
+  flex:1 ;
+  justify-content: center;
+  align-items: center;
+  background: gray;
+}
+img {
+  max-width: 100%;
+  height: 95vh;
+  object-fit: cover;
+  border: 5px solid #fff;
+}

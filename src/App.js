@@ -1,8 +1,7 @@
-import react, { useState } from "react";
+import { useRef, useState } from "react";
 import img from "./assets/images/Canada-Toronto.jpg";
-import './App.css';
-import Announcement from "./components/Announcement";
-import Navbar from "./components/Navbar";
+import "./App.css";
+
 function App() {
   const [brightness, setBrightness] = useState({
     name: "Brightness",
@@ -37,7 +36,7 @@ function App() {
   const [grayscale, setGrayscale] = useState({
     name: "Grayscale",
     property: "grayscale",
-    value: 100,
+    value: 0,
     range: {
       min: 0,
       max: 200,
@@ -47,7 +46,7 @@ function App() {
   const [sepia, setSepia] = useState({
     name: "Sepia",
     property: "sepia",
-    value: 100,
+    value: 10,
     range: {
       min: 0,
       max: 100,
@@ -57,7 +56,7 @@ function App() {
   const [hueRotate, setHueRotate] = useState({
     name: "Hue Rotate",
     property: "hue-Rotate",
-    value: 100,
+    value: 0,
     range: {
       min: 0,
       max: 360,
@@ -67,7 +66,7 @@ function App() {
   const [blur, setBlur] = useState({
     name: "Blur",
     property: "blur",
-    value: 10,
+    value: 0,
     range: {
       min: 0,
       max: 20,
@@ -75,17 +74,160 @@ function App() {
     unit: "px",
   });
 
-  const [background, setBackground] = useState("https://unsplash.com/photos/the-sun-is-setting-over-the-desert-with-many-cacti-cI7n64rSTqc")
+  const [background, setBackground] = useState("");
+  const brightnessRef = useRef(brightness.value);
   return (
     <div>
-      <Announcement/>
-      <Navbar setBackground={setBackground}/>
       <div className="container">
+        <div className="controller-container">
+          <div className="link-group">
+            <h3>Welcome to Photo Editor</h3>
+            <p>image Link:</p>
+            <input
+              type="text"
+              className="input"
+              placeholder="Please insert your image Link"
+              onChange={(e) => {
+                setBackground(e.target.value);
+              }}
+            />
+          </div>
+          <div className="controller-options">
+            <div className="option-group">
+              <div>
+                <p>{brightness.name}</p>
+                <input
+                  type="range"
+                  min={brightness.range.min}
+                  max={brightness.range.max}
+                  value={brightness.value}
+                  onChange={(e) => {
+                    setBrightness({
+                      ...brightness,
+                      value: `${e.target.value}`,
+                    });
+                  }}
+                />
+              </div>
+              <input
+                className="inputOption"
+                type="text"
+                value={brightness.value}
+              />
+            </div>
+            <div className="option-group">
+              <div>
+                <p>{saturate.name}</p>
+                <input
+                  type="range"
+                  min={saturate.range.min}
+                  max={saturate.range.max}
+                  value={saturate.value}
+                  onChange={(e) => {
+                    setSaturate({ ...saturate, value: `${e.target.value}` });
+                  }}
+                />
+              </div>
+              <input
+                className="inputOption"
+                type="text"
+                value={saturate.value}
+              />
+            </div>
+            <div className="option-group">
+              <div>
+                <p>{grayscale.name}</p>
+                <input
+                  type="range"
+                  min={grayscale.range.min}
+                  max={grayscale.range.max}
+                  value={grayscale.value}
+                  onChange={(e) => {
+                    setGrayscale({ ...grayscale, value: `${e.target.value}` });
+                  }}
+                />
+              </div>
+              <input
+                className="inputOption"
+                type="text"
+                value={grayscale.value}
+              />
+            </div>
+            <div className="option-group">
+              <div>
+                <p>{sepia.name}</p>
+                <input
+                  type="range"
+                  min={sepia.range.min}
+                  max={sepia.range.max}
+                  value={sepia.value}
+                  onChange={(e) => {
+                    setSepia({ ...sepia, value: `${e.target.value}` });
+                  }}
+                />
+              </div>
+              <input className="inputOption" type="text" value={sepia.value} />
+            </div>
+            <div className="option-group">
+              <div>
+                <p>{hueRotate.name}</p>
+                <input
+                  type="range"
+                  min={hueRotate.range.min}
+                  max={hueRotate.range.max}
+                  value={hueRotate.value}
+                  onChange={(e) => {
+                    setHueRotate({ ...hueRotate, value: `${e.target.value}` });
+                  }}
+                />
+              </div>
+              <input
+                className="inputOption"
+                type="text"
+                value={hueRotate.value}
+              />
+            </div>
+            <div className="option-group">
+              <div>
+                <p>{contrast.name}</p>
+                <input
+                  type="range"
+                  min={contrast.range.min}
+                  max={contrast.range.max}
+                  value={contrast.value}
+                  onChange={(e) => {
+                    setContrast({ ...contrast, value: `${e.target.value}` });
+                  }}
+                />
+              </div>
+              <input
+                className="inputOption"
+                type="text"
+                value={contrast.value}
+              />
+            </div>
+            <div className="option-group">
+              <div>
+                <p>{blur.name}</p>
+                <input
+                  type="range"
+                  min={blur.range.min}
+                  max={blur.range.max}
+                  value={blur.value}
+                  onChange={(e) => {
+                    setBlur({ ...blur, value: `${e.target.value}` });
+                  }}
+                />
+              </div>
+              <input className="inputOption" type="text" value={blur.value} />
+            </div>
+          </div>
+        </div>
         <div className="image-container">
           <div className="image">
             <img
               className="img"
-              src={img}
+              src={background === "" ? img : background}
               alt="pic"
               style={{
                 filter: `${brightness.property}(${brightness.value}${brightness.unit})
@@ -98,71 +240,6 @@ function App() {
               }}
             />
           </div>
-        </div>
-        <div className="options">
-          <p>{brightness.name}</p>
-          <input
-            type="range"
-            min={brightness.range.min}
-            max={brightness.range.max}
-            onChange={(e) => {
-              setBrightness({ ...brightness, value: `${e.target.value}` });
-            }}
-          />
-          <p>{saturate.name}</p>
-          <input
-            type="range"
-            min={saturate.range.min}
-            max={saturate.range.max}
-            onChange={(e) => {
-              setSaturate({ ...saturate, value: `${e.target.value}` });
-            }}
-          />
-          <p>{grayscale.name}</p>
-          <input
-            type="range"
-            min={grayscale.range.min}
-            max={grayscale.range.max}
-            onChange={(e) => {
-              setGrayscale({ ...grayscale, value: `${e.target.value}` });
-            }}
-          />
-          <p>{sepia.name}</p>
-          <input
-            type="range"
-            min={sepia.range.min}
-            max={sepia.range.max}
-            onChange={(e) => {
-              setSepia({ ...sepia, value: `${e.target.value}` });
-            }}
-          />
-          <p>{hueRotate.name}</p>
-          <input
-            type="range"
-            min={hueRotate.range.min}
-            max={hueRotate.range.max}
-            onChange={(e) => {
-              setHueRotate({ ...hueRotate, value: `${e.target.value}` });
-            }}
-          />
-          <p>{contrast.name}</p>
-          <input
-            type="range"
-            min={contrast.range.min}
-            max={contrast.range.max}
-            onChange={(e) => {
-              setContrast({ ...contrast, value: `${e.target.value}` });
-            }}
-          />
-          <p>{blur.name}</p>
-          <input
-            type="range"
-            min={blur.range.min}
-            max={blur.range.max}
-            onChange={(e) => {
-              setBlur({ ...blur, value: `${e.target.value}` });
-            }}
-          />
         </div>
       </div>
     </div>
